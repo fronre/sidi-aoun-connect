@@ -1,18 +1,21 @@
-import { Home, Search, MapPin, User, Settings } from 'lucide-react';
+import { Home, Search, MapPin, User, MessageCircle } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { useAuth } from '@/contexts/AuthContext';
 
-const navItems = [
-  { icon: Home, label: 'الرئيسية', path: '/' },
-  { icon: Search, label: 'البحث', path: '/search' },
-  { icon: MapPin, label: 'الخريطة', path: '/map' },
-  { icon: User, label: 'حسابي', path: '/profile' },
-];
-
-export const BottomNav = () => {
+const BottomNav = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { user } = useAuth();
+
+  const navItems = [
+    { icon: Home, label: 'الرئيسية', path: '/' },
+    { icon: Search, label: 'البحث', path: '/search' },
+    { icon: MessageCircle, label: 'الرسائل', path: '/messages' },
+    { icon: MapPin, label: 'الخريطة', path: '/map' },
+    { icon: User, label: 'حسابي', path: '/profile' },
+  ];
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 glass-effect border-t border-border/50 safe-area-pb">
@@ -41,3 +44,5 @@ export const BottomNav = () => {
     </nav>
   );
 };
+
+export { BottomNav };
