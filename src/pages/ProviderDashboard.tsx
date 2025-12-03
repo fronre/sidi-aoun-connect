@@ -69,23 +69,56 @@ const ProviderDashboard = () => {
     }
   };
 
+  const totalServices = services?.length || 0;
+  const approvedServices = services?.filter(s => s.is_approved).length || 0;
+  const pendingServices = services?.filter(s => !s.is_approved).length || 0;
+
+  // احسب متوسط التقييم وعدد المراجعات لجميع الخدمات (إن وُجدت بيانات مراجعات)
+  const allReviews = (services || [])
+    .flatMap((s: any) => s.reviews || []);
+
+  const totalReviews = allReviews.length;
+  const averageRating = totalReviews
+    ? allReviews.reduce((sum: number, r: any) => sum + (r.rating || 0), 0) / totalReviews
+    : 0;
+
   const stats = [
-    { label: 'إجمالي الخدمات', value: services?.length || 0, icon: BarChart3, color: 'text-primary' },
-    { label: 'الخدمات المعتمدة', value: services?.filter(s => s.is_approved).length || 0, icon: CheckCircle, color: 'text-green-500' },
-    { label: 'قيد المراجعة', value: services?.filter(s => !s.is_approved).length || 0, icon: Clock, color: 'text-yellow-500' },
+    { label: 'إجمالي الخدمات', value: totalServices, icon: BarChart3, color: 'text-primary' },
+    { label: 'الخدمات المعتمدة', value: approvedServices, icon: CheckCircle, color: 'text-emerald-500' },
+    { label: 'قيد المراجعة', value: pendingServices, icon: Clock, color: 'text-amber-500' },
   ];
 
   return (
     <AppLayout title="لوحة التحكم">
       <div className="px-4 py-4 space-y-6">
         {/* Welcome Section */}
-        <div className="gradient-card rounded-2xl p-6 border border-border/50">
-          <h2 className="text-xl font-bold text-foreground mb-1">
-            مرحباً {profile?.full_name}
-          </h2>
-          <p className="text-muted-foreground text-sm">
-            إدارة خدماتك ومتابعة أدائك
-          </p>
+        <div className="gradient-card rounded-2xl p-6 border border-border/50 flex flex-col gap-3">
+          <div>
+            <h2 className="text-xl font-bold text-foreground mb-1">
+              مرحباً {profile?.full_name || 'حرفي'}
+            </h2>
+            <p className="text-muted-foreground text-sm">
+              من هنا تدير كل خدماتك، تتابع الموافقات، وتستقبل رسائل الزبائن.
+            </p>
+          </div>
+
+          {totalServices > 0 && (
+            <div className="flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
+              <div className="flex items-center gap-1">
+                <Star className="w-4 h-4 text-yellow-400" />
+                <span>
+                  متوسط التقييم العام:
+                  <span className="font-semibold text-foreground ml-1">
+                    {averageRating ? averageRating.toFixed(1) : '—'}
+                  </span>
+                </span>
+              </div>
+              <div className="flex items-center gap-1">
+                <MessageCircle className="w-4 h-4 text-primary" />
+                <span>{totalReviews} مراجعة على خدماتك</span>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Stats */}
@@ -141,11 +174,21 @@ const ProviderDashboard = () => {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
                   <div className="flex items-center gap-1">
                     <MapPin className="w-4 h-4" />
                     <span>{service.address}</span>
                   </div>
+
+                  {typeof (service as any).averageRating === 'number' && (
+                    <div className="flex items-center gap-1">
+                      <Star className="w-4 h-4 text-yellow-400" />
+                      <span>
+                        {(service as any).averageRating.toFixed(1)}
+                        <span className="text-[11px] ml-1">({(service as any).reviewCount || 0} تقييم)</span>
+                      </span>
+                    </div>
+                  )}
                 </div>
 
                 <div className="flex items-center gap-2 pt-2 border-t border-border/50">

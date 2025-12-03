@@ -1,5 +1,6 @@
 import { Bell, Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useNavigate } from 'react-router-dom';
 
 interface HeaderProps {
   title?: string;
@@ -7,6 +8,8 @@ interface HeaderProps {
 }
 
 export const Header = ({ title = 'سيدي عون', showBack = false }: HeaderProps) => {
+  const navigate = useNavigate();
+
   return (
     <header className="sticky top-0 z-40 glass-effect border-b border-border/50">
       <div className="flex items-center justify-between px-4 py-3">
@@ -21,7 +24,12 @@ export const Header = ({ title = 'سيدي عون', showBack = false }: HeaderPr
         </div>
         
         <div className="flex items-center gap-2">
-          <Button variant="ghost" size="icon" className="relative">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="relative"
+            onClick={() => navigate('/notifications')}
+          >
             <Bell className="h-5 w-5" />
             <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-accent animate-pulse" />
           </Button>

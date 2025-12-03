@@ -1,4 +1,4 @@
-import { Home, Search, MapPin, User, MessageCircle } from 'lucide-react';
+import { Home, Search, MapPin, User, MessageCircle, Settings } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -15,6 +15,7 @@ const BottomNav = () => {
     { icon: MessageCircle, label: 'الرسائل', path: '/messages' },
     { icon: MapPin, label: 'الخريطة', path: '/map' },
     { icon: User, label: 'حسابي', path: '/profile' },
+    { icon: Settings, label: 'الإعدادات', path: '/settings' },
   ];
 
   return (

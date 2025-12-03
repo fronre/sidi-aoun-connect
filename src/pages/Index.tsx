@@ -41,10 +41,10 @@ const Index = () => {
             <div className="relative z-10">
               <h2 className="text-2xl font-bold text-foreground">
                 مرحباً بك في
-                <span className="text-gradient block mt-1">بلدية سيدي عون</span>
+                <span className="text-gradient block mt-1">دليل خدمات سيدي عون</span>
               </h2>
               <p className="text-muted-foreground text-sm mt-2">
-                اكتشف أفضل الحرفيين والخدمات في بلديتك
+                منصة محلية تساعدك على العثور على الحرفيين والمتاجر والخدمات القريبة منك بسهولة وبواجهة عربية بسيطة.
               </p>
             </div>
 
@@ -57,15 +57,15 @@ const Index = () => {
               />
             </div>
 
-            {/* Quick Stats */}
-            <div className="relative z-10 flex items-center gap-4 pt-2">
-              <div className="flex items-center gap-2 text-sm">
+            {/* Quick Highlights - نص عام بدون أرقام حقيقية */}
+            <div className="relative z-10 flex flex-wrap items-center gap-3 pt-2 text-sm">
+              <div className="flex items-center gap-2">
                 <BadgeCheck className="w-4 h-4 text-primary" />
-                <span className="text-muted-foreground">{services.filter(s => s.isVerified).length} موثق</span>
+                <span className="text-muted-foreground">حرفيون موثوقون وخدمات محلية</span>
               </div>
-              <div className="flex items-center gap-2 text-sm">
+              <div className="flex items-center gap-2">
                 <TrendingUp className="w-4 h-4 text-accent" />
-                <span className="text-muted-foreground">{services.length} خدمة</span>
+                <span className="text-muted-foreground">تجربة سهلة للبحث والتصفح</span>
               </div>
             </div>
           </div>

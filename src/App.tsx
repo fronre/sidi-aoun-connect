@@ -16,6 +16,9 @@ import ProviderDashboard from "./pages/ProviderDashboard";
 import AddService from "./pages/AddService";
 import AdminDashboard from "./pages/AdminDashboard";
 import NotFound from "./pages/NotFound";
+import Owner from "./pages/Owner";
+import Settings from "./pages/Settings";
+import Notifications from "./pages/Notifications";
 
 const queryClient = new QueryClient();
 
@@ -38,6 +41,9 @@ const App = () => (
             <Route path="/dashboard" element={<ProviderDashboard />} />
             <Route path="/add-service" element={<AddService />} />
             <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/owner" element={<Owner />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="/notifications" element={<Notifications />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
